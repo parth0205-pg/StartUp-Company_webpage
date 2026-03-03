@@ -1,0 +1,43 @@
+nav ul { list-style: none; display: flex; gap: 20px; }
+nav ul li { position: relative; }
+.dropedown { 
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background: #fff; 
+    padding: 10px;
+    border-radius: 8px; 
+}
+nav ul li:hover .dropedown { display: block; }
+
+#hero {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, #4facfe, #00f2fe);
+    color: #fff;
+    text-align: center;
+    padding: 2rem;
+}
+
+#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#hero .btn {
+    background: #fff;
+    color: #4facfe;
+    padding: 12px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+#hero .btn:hover {
+    background: #fff0f5;
+}
