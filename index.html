@@ -3,64 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CraftAdmin | Build Smarter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>PitchTech | Sculpting Thoughts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <div class="logo">CraftAdmin</div>
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="/images/logo.png" alt="Company Logo" class="header-logo">
+            <div class="logo-text-group">
+                <span class="logo-text">PitchTech</span>
+                <span class="logo-slogan">Architecting Digital Excellence</span>
+            </div>
+        </div>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="#hero">Home</a></li>
                 <li><a href="#features">Features</a></li>
-                <li>
-                    <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                <li class="has-dropdown">
+                    <a href="#services-grid">Services <i class="fas fa-chevron-down"></i></a>
                     <ul class="dropdown">
-                        <li><a href="#">Server Hosting</a></li>
-                        <li><a href="#">Mod Integration</a></li>
+                        <li><a href="#custom-software">Custom Software Development</a></li>
+                        <li><a href="#ai-development">AI Development</a></li>
+                        <li><a href="#web-development">Web Development</a></li>
+                        <li><a href="#dedicated-team">Dedicated Development Team</a></li>
+                        <li><a href="#product-dev">Software Product Development</a></li>
+                        <li><a href="#ecommerce">eCommerce Development</a></li>
+                        <li><a href="#mobile-app">Mobile App Development</a></li>
+                        <li><a href="#testing-qa">Software Testing & QA</a></li>
+                        <li><a href="#ui-ux">UI/UX Design</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#contact" class="nav-contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Build Smarter with MainCrafts</h1>
-            <p>Deploy, manage, and scale your heavily modded server environments with zero friction.</p>
-            <a href="#" class="btn">Get Started</a>
-        </div>
+    <main>
+        <!-- Full Screen Hero Section -->
+        <section id="hero" class="hero-fullscreen">
+            <div class="hero-bg-image" style="background-image: url('/images/home.png');">
+            </div>
+            <div class="container hero-layout">
+                <div class="hero-text">
+                    <h1 class="main-title">
+                    Turning Bold Ideas into<br>Powerful Platforms.
+                    </h1>
+                    <p class="hero-description">
+                        From initial ideation to full-scale deployment, we provide the technical horsepower to bring your most ambitious projects <br>to life. Experience software development redefined by speed and reliability.
+                    </p>
+                    <a href="#contact" class="btn-start">Let's Start</a>
+                </div>
+            </div>
         </section>
 
-    <section id="features" class="features">
-        <h2>Why Choose Us?</h2>
-        <div class="feature-container">
-            <div class="feature-card">
-                <i class="fas fa-bolt"></i>
-                <h3>Fast</h3>
-                <p>Lightning-fast deployment speeds for all your complex setups.</p>
+        <!-- Features Section -->
+        <section id="features" class="section-padding light-bg">
+            <div class="container">
+                <h2 class="section-title">Why Choose Us?</h2>
+                <div class="feature-container">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Fast</h3>
+                        <p>Lightning-fast deployment speeds for all your complex setups.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Responsive</h3>
+                        <p>Manage everything on the go with a fully responsive dashboard.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-server"></i>
+                        <h3>Scalable</h3>
+                        <p>Easily upgrade resources as your community grows.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Transparent Communication</h3>
+                        <p>Stay informed at every stage of the development process.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>Long-term Support</h3>
+                        <p>Receive ongoing support and maintenance for your software solutions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Expert Team</h3>
+                        <p>Work with a team of seasoned developers and industry experts.</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Responsive</h3>
-                <p>Manage everything on the go with a fully responsive dashboard.</p>
+        </section>
+
+        <!-- Full Services Grid -->
+        <section id="services-grid" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Explore Our Full Range of Services</h2>
+                <div class="services-grid">
+                    <div class="service-card" id="custom-software">
+                        <i class="fas fa-file-code"></i>
+                        <h3>Custom Software Development</h3>
+                        <p>Tailored software solutions designed to meet your unique requirements.</p>
+                    </div>
+                    <div class="service-card" id="ai-development">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI Development</h3>
+                        <p>Implement cutting-edge machine learning and artificial intelligence.</p>
+                    </div>
+                    <div class="service-card" id="web-development">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Web Development</h3>
+                        <p>Robust digital experiences built for scale and performance.</p>
+                    </div>
+                    <div class="service-card" id="dedicated-team">
+                        <i class="fas fa-users-cog"></i>
+                        <h3>Dedicated Development Team</h3>
+                        <p>Scale your workforce with our team of expert developers.</p>
+                    </div>
+                    <div class="service-card" id="product-dev">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Software Product Development</h3>
+                        <p>Full-cycle development from ideation to market launch.</p>
+                    </div>
+                    <div class="service-card" id="ecommerce">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>eCommerce Development</h3>
+                        <p>Powerful online stores with seamless third-party integrations.</p>
+                    </div>
+                    <div class="service-card" id="mobile-app">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile App Development</h3>
+                        <p>Intuitive native and cross-platform mobile applications.</p>
+                    </div>
+                    <div class="service-card" id="testing-qa">
+                        <i class="fas fa-clipboard-check"></i>
+                        <h3>Software Testing & QA</h3>
+                        <p>Ensuring the quality, reliability, and security of your software.</p>
+                    </div>
+                    <div class="service-card" id="ui-ux">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <h3>UI/UX Design</h3>
+                        <p>User-centered design to enhance engagement and satisfaction.</p>
+                    </div>
+                </div>
             </div>
-            <div class="feature-card">
-                <i class="fas fa-server"></i>
-                <h3>Scalable</h3>
-                <p>Easily upgrade resources as your community and player base grow.</p>
+        </section>
+    </main>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding light-bg">
+        <div class="container">
+            <div class="contact-header">
+                <h2>Get In Touch</h2>
+                <p>Have a project in mind? Let's build something amazing together.</p>
+            </div>
+            <div class="contact-wrapper">
+                <form action="#" class="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Social Icons -->
+            <div class="social-container">
+                <h3>Follow Our Journey</h3>
+                <div class="social-icons">
+                    <a href="#" class="icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="icon instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="icon facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="icon x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="mailto:webcraft029@gmail.com" class="icon gmail"><i class="fas fa-envelope"></i></a>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="footer-content">
-            <p>Copyright &copy; 2025 CraftAdmin</p> <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Contact</a> </div>
+            <p>Copyright &copy; 2026 PitchTech. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Contact</a>
+            </div>
         </div>
     </footer>
 
