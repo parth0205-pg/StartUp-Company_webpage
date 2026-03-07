@@ -2,7 +2,7 @@
 
 A modern, fully responsive landing page for PitchTech, a tech consultancy and software development agency. This project is built entirely with pure HTML and CSS, focusing on clean design, semantic structure, and lightweight performance without the need for JavaScript.
 
-## 🚀 Features
+## Features
 
 *   **Modern Hero Section:** Features a unique diagonal layout using CSS `clip-path` and a striking background image.
 *   **Glass-morphism Navigation:** A fixed, full-width sticky header with a semi-transparent, blurred background that sits flush against the edges of the screen.
@@ -10,20 +10,20 @@ A modern, fully responsive landing page for PitchTech, a tech consultancy and so
 *   **Fully Responsive:** Optimized for all screen sizes (Desktop, Tablet, and Mobile) using CSS media queries.
 *   **Interactive UI/UX:** Smooth `transition` effects on buttons, service cards, and social icons to enhance user experience.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 *   **HTML5:** Semantic markup for structure and accessibility.
 *   **CSS3:** Custom styling, Flexbox layouts, Grid layouts, and CSS animations/transitions.
 *   **Google Fonts:** Utilizing **Roboto Slab** for a professional, highly readable typography pairing.
 *   **FontAwesome (v6.5.1):** Scalable vector icons for the features, services, and footer sections.
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 pitchtech-landing-page/
 │
 ├── images/
-│   ├── logo1.png          # PitchTech company logo
+│   ├── logo.png          # PitchTech company logo
 │   └── home.png           # Hero section background image
 │
 ├── index.html             # Main HTML structure
