@@ -2,6 +2,8 @@
 
 A modern, fully responsive landing page for PitchTech, a tech consultancy and software development agency. This project is built entirely with pure HTML and CSS, focusing on clean design, semantic structure, and lightweight performance without the need for JavaScript.
 
+# Visit page :  https://parth0205-pg.github.io/StartUp-Company_webpage/
+
 ## 🚀 Features
 
 *   **Modern Hero Section:** Features a unique diagonal layout using CSS `clip-path` and a striking background image.
@@ -23,7 +25,7 @@ A modern, fully responsive landing page for PitchTech, a tech consultancy and so
 pitchtech-landing-page/
 │
 ├── images/
-│   ├── logo1.png          # PitchTech company logo
+│   ├── logo.png          # PitchTech company logo
 │   └── home.png           # Hero section background image
 │
 ├── index.html             # Main HTML structure
