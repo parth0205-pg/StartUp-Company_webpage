@@ -5,9 +5,6 @@ A modern, fully responsive landing page for PitchTech, a tech consultancy and so
 Web page Link : https://parth0205-pg.github.io/StartUp-Company_webpage/
 
 ## Features
-=======
-## Features
->>>>>>> 6f646562ccac36523aed5c07f0aff4606e8f113b
 
 *   **Modern Hero Section:** Features a unique diagonal layout using CSS `clip-path` and a striking background image.
 *   **Glass-morphism Navigation:** A fixed, full-width sticky header with a semi-transparent, blurred background that sits flush against the edges of the screen.
