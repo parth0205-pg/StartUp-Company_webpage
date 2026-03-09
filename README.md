@@ -31,3 +31,12 @@ pitchtech-landing-page/
 ├── index.html             # Main HTML structure
 ├── style.css              # Main stylesheet
 └── README.md              # Project documentation
+
+## Project Status: Active Development
+
+This repository currently serves as a static UI template and visual outlook for a startup landing page. It is actively being developed. 
+
+**Upcoming features include:**
+* Implementation of dynamic JavaScript functionalities.
+* A fully functional backend integration for the Contact Us form.
+* Extended multi-page routing and interactive UI components.
