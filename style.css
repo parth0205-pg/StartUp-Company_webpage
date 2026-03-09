@@ -470,17 +470,15 @@ footer {
         display: flex;
     }
 
-    /* Stop the list items from stretching to the height of the screen */
     nav ul li {
         height: auto; 
         width: 100%;
         justify-content: center;
     }
 
-    /* Stop the invisible dropdown from taking up space! */
     .dropdown {
         position: static; 
-        display: none; /* Takes up 0 vertical space now */
+        display: none;
         visibility: visible;
         opacity: 1;
         transform: none;
@@ -489,7 +487,6 @@ footer {
         padding-top: 10px;
     }
 
-    /* Shows the dropdown only when "Services" is tapped */
     .has-dropdown:hover .dropdown,
     .has-dropdown:focus-within .dropdown {
         display: block; 
