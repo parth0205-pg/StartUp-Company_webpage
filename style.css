@@ -150,10 +150,10 @@ nav ul li a:hover {
 }
 
 .dropdown {
-    display: block;
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
+    display: none;
+    visibility: visible;
+    opacity: 1;
+    position: static;
     top: 100%;
     left: 0;
     background: var(--white);
@@ -487,8 +487,8 @@ footer {
         padding-top: 10px;
     }
 
-    .has-dropdown:hover .dropdown,
-    .has-dropdown:focus-within .dropdown {
+    /* ONLY show when the JS adds the .open class */
+    .has-dropdown.open .dropdown {
         display: block; 
     }
 
@@ -508,6 +508,12 @@ footer {
         min-height: 100vh;
         padding-top: 120px;
         padding-bottom: 60px;
+    }
+
+    /* Mobile BG */
+    .hero-bg-image {
+        clip-path: polygon(0 45%, 100% 30%, 100% 100%, 0 100%);
+        background-position: center bottom;
     }
 
     .hero-text {
