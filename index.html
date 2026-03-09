@@ -48,7 +48,7 @@
     <main>
         <!-- Full Screen Hero Section -->
         <section id="hero" class="hero-fullscreen">
-            <div class="hero-bg-image" style="background-image: url('/images/home.png');">
+            <div class="hero-bg-image" style="background-image: url('images/home.png');">
             </div>
             <div class="container hero-layout">
                 <div class="hero-text">
@@ -204,6 +204,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- Small part of Js to close the mobile menu when a link is clicked -->
+    <script>
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('menu-toggle').checked = false;
+            });
+        });
+    </script>
 
 </body>
 </html>
