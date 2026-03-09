@@ -19,6 +19,15 @@ Web page Link : https://parth0205-pg.github.io/StartUp-Company_webpage/
 *   **Google Fonts:** Utilizing **Roboto Slab** for a professional, highly readable typography pairing.
 *   **FontAwesome (v6.5.1):** Scalable vector icons for the features, services, and footer sections.
 
+## Project Status: Active Development
+
+This repository currently serves as a static UI template and visual outlook for a startup landing page. It is actively being developed. 
+
+**Upcoming features include:**
+* Implementation of dynamic JavaScript functionalities.
+* A fully functional backend integration for the Contact Us form.
+* Extended multi-page routing and interactive UI components.
+
 ## Project Structure
 
 ```text
@@ -31,12 +40,3 @@ pitchtech-landing-page/
 ├── index.html             # Main HTML structure
 ├── style.css              # Main stylesheet
 └── README.md              # Project documentation
-
-## Project Status: Active Development
-
-This repository currently serves as a static UI template and visual outlook for a startup landing page. It is actively being developed. 
-
-**Upcoming features include:**
-* Implementation of dynamic JavaScript functionalities.
-* A fully functional backend integration for the Contact Us form.
-* Extended multi-page routing and interactive UI components.
