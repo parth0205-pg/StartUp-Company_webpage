@@ -454,6 +454,7 @@ footer {
     font-weight: 500;
     line-height: 1;
     color: #ffffff;
+    margin-top: 50px;
     margin-bottom: 20px;
     text-transform: uppercase;
 }
@@ -467,10 +468,10 @@ footer {
 
 .about-description {
     font-size: 1.15rem;
-    color: #f1f1f1;
+    color: var(--dark);
     font-weight: 400;
     line-height: 1.6;
-    margin-bottom: 0;
+    margin-top: 20px;
 }
 
 .mission-vision, .who-we-are, .expertise, .cta-section {
@@ -516,19 +517,25 @@ footer {
 }
 
 /* --- Who We Are Section --- */
-.bg-light {
-    background-color: var(--light-grey);
-}
-
 .who-we-are {
     text-align: center;
+    background-image: linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('images/who-we-are-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 100px 0;
+}
+
+.who-we-are h2 {
+    color: var(--white);
+    margin-bottom: 30px;
 }
 
 .who-we-are p {
     max-width: 800px;
     margin: 0 auto;
     font-size: 1.25rem;
-    color: #555;
+    color: #e2e8f0;
     line-height: 1.8;
 }
 
@@ -569,7 +576,6 @@ footer {
     font-weight: 500;
 }
 
-/* Adds a custom checkmark to the list items */
 .service-category ul li::before {
     content: '\f00c';
     font-family: 'Font Awesome 6 Free';
@@ -581,19 +587,19 @@ footer {
 
 /* --- CTA Section --- */
 .cta-section {
-    background: var(--dark);
+    background: var(--light-grey);
     text-align: center;
     color: var(--white);
 }
 
 .cta-section h2 {
-    color: var(--white);
+    color: var(--dark);
     margin-bottom: 20px;
 }
 
 .cta-section p {
     font-size: 1.2rem;
-    color: #cccccc;
+    color: #000000;
     margin-bottom: 40px;
 }
 
