@@ -346,14 +346,8 @@ nav ul li a:hover {
 
 /* --- Social Icons Styles --- */
 .social-container {
-    /*display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    background-color: #f8f9fa;
-    padding: 50px 0;*/
     text-align: center;
-    margin-top: 60px;
+    margin-top: 20px;
 }
 
 .social-container h3 {
@@ -413,35 +407,242 @@ footer {
     color: var(--accent);
 }
 
-/* =========================================
-   RESPONSIVE DESIGN (TABLET & MOBILE)
-   ========================================= */
+/* About us section */
+
+.about-fullscreen {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    filter: brightness(0.5);
+}
+
+.about-layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    width: 100%;
+    height: 100%;
+}
+
+.about-text {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.about-title {
+    font-size: 3.5rem; 
+    font-weight: 500;
+    line-height: 1;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.about-subtitle {
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    font-size: 1.15rem;
+    color: #f1f1f1;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.mission-vision, .who-we-are, .expertise, .cta-section {
+    padding: 80px 0;
+}
+
+.mission-vision h2, .who-we-are h2, .expertise h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 50px;
+}
+
+/* --- Mission & Vision Section --- */
+.mission-vision .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.content-item {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--accent);
+    transition: transform 0.3s ease;
+}
+
+.content-item:hover {
+    transform: translateY(-5px);
+}
+
+.content-item h3 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.content-item p {
+    color: #555;
+    font-size: 1.1rem;
+}
+
+/* --- Who We Are Section --- */
+.bg-light {
+    background-color: var(--light-grey);
+}
+
+.who-we-are {
+    text-align: center;
+}
+
+.who-we-are p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.25rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+/* --- Ecosystem of Expertise Section --- */
+.service-category {
+    background: var(--white);
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border: 1px solid #eaeaea;
+}
+
+.service-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--primary);
+}
+
+.service-category h3 {
+    font-size: 1.5rem;
+    color: var(--dark);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light-grey);
+}
+
+.service-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.service-category ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Adds a custom checkmark to the list items */
+.service-category ul li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+/* --- CTA Section --- */
+.cta-section {
+    background: var(--dark);
+    text-align: center;
+    color: var(--white);
+}
+
+.cta-section h2 {
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin-bottom: 40px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 123, 41, 0.3);
+}
+
+.btn-primary:hover {
+    background: #e66a15;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 123, 41, 0.4);
+    color: var(--white);
+}
+
+/*RESPONSIVE DESIGN (TABLET & MOBILE)*/
 
 @media (max-width: 992px) {
-    /* Stack Hero Section vertically */
     .hero-fullscreen {
         display: flex;
         flex-direction: column;
         height: auto;
         min-height: 100vh;
-        padding-top: 80px; /* Space for the header */
+        padding-top: 80px;
     }
     
     .hero-bg-image {
         position: relative;
-        order: 1; /* Puts image FIRST */
+        order: 1;
         width: 100%;
         height: 400px;
-        clip-path: none; /* REMOVES the diagonal cut entirely */
+        clip-path: none;
         margin-top: 0;
         background-position: center;
     }
 
     .hero-layout {
         display: block;
-        order: 2; /* Puts text SECOND */
-        margin-top: 30px; /* Space between image and text */
-        padding-bottom: 60px; /* Space below the button */
+        order: 2;
+        margin-top: 30px;
+        padding-bottom: 60px;
     }
     
     .hero-text {
@@ -456,7 +657,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* Header & Navigation Fixes */
     .main-header {
         position: fixed; 
         top: 0;
@@ -494,7 +694,6 @@ footer {
         display: flex;
     }
 
-    /* Stack Dropdown Links Vertically */
     nav ul li {
         flex-direction: column;
         height: auto; 
@@ -504,7 +703,7 @@ footer {
 
     .dropdown {
         position: static; 
-        display: none; /* Overrides desktop visibility to fix spacing */
+        display: none;
         visibility: visible;
         opacity: 1;
         transform: none;
@@ -514,7 +713,6 @@ footer {
         width: 100%;
     }
 
-    /* Triggered by JavaScript tap */
     .has-dropdown.open .dropdown {
         display: block; 
     }
@@ -530,7 +728,6 @@ footer {
         margin-top: 10px;
     }
 
-    /* Hero Text Adjustments */
     .main-title { 
         font-size: 2.2rem; 
         margin-bottom: 20px;
@@ -544,11 +741,23 @@ footer {
     .hero-description br { display: none; }
 
     .hero-bg-image {
-        height: 300px; /* Slightly shorter image for phones */
+        height: 300px;
     }
 
     .contact-wrapper {
         padding: 25px;
         margin: 0 15px;
+    }
+
+    .mission-vision .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .mission-vision, .who-we-are, .expertise, .cta-section {
+        padding: 50px 0;
+    }
+
+    .mission-vision h2, .who-we-are h2, .expertise h2 {
+        font-size: 2rem;
     }
 }
