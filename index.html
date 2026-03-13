@@ -25,6 +25,7 @@
         <nav>
             <ul>
                 <li><a href="#hero">Home</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="#features">Features</a></li>
                 <li class="has-dropdown">
                     <a href="#services-grid">Services <i class="fas fa-chevron-down"></i></a>
@@ -40,7 +41,7 @@
                         <li><a href="#ui-ux">UI/UX Design</a></li>
                     </ul>
                 </li>
-                <li><a href="#contact" class="nav-contact-btn">Contact</a></li>
+                <li><a href="contact.html" class="nav-contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -58,7 +59,7 @@
                     <p class="hero-description">
                         From initial ideation to full-scale deployment, we provide the technical horsepower to bring your most ambitious projects <br>to life. Experience software development redefined by speed and reliability.
                     </p>
-                    <a href="#contact" class="btn-start">Let's Start</a>
+                    <a href="contact.html" class="btn-start">Let's Start</a>
                 </div>
             </div>
         </section>
@@ -156,75 +157,25 @@
             </div>
         </section>
     </main>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section-padding light-bg">
-        <div class="container">
-            <div class="contact-header">
-                <h2>Get In Touch</h2>
-                <p>Have a project in mind? Let's build something amazing together.</p>
-            </div>
-            <div class="contact-wrapper">
-                <form action="#" class="contact-form">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" name="phone" placeholder="Phone Number">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-
-            <!-- Social Icons -->
-            <div class="social-container">
-                <h3>Follow Our Journey</h3>
+    <footer>
+        <!-- Social Icons -->
+        <div class="social-container">
                 <div class="social-icons">
                     <a href="#" class="icon linkedin"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#" class="icon instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="icon facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="icon x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="mailto:webcraft029@gmail.com" class="icon gmail"><i class="fas fa-envelope"></i></a>
+                    <a href="pitchtech@gmail.com" class="icon gmail"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <footer>
+            <br>
         <div class="footer-content">
             <p>Copyright &copy; 2026 PitchTech. All rights reserved.</p>
             <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="contact.html">Contact</a>
             </div>
         </div>
     </footer>
-
-    <!-- Small part of Js for better mobile menu -->
-    <script>
-        // 1. Toggle the "Services" dropdown on mobile tap
-        const servicesBtn = document.querySelector('.has-dropdown > a');
-        const dropdownParent = document.querySelector('.has-dropdown');
-        
-        servicesBtn.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                dropdownParent.classList.toggle('open');
-            }
-        });
-
-        // 2. Close the entire mobile menu when any normal link is clicked
-        document.querySelectorAll('nav ul li a:not(.has-dropdown > a)').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('menu-toggle').checked = false;
-            });
-        });
-    </script>
-
 </body>
+<script src="script.js"></script>
 </html>
