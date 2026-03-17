@@ -804,6 +804,45 @@ footer {
     color: var(--white);
 }
 
+/* Privacy policy */
+.legal-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+        
+.legal-wrapper h1 {
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 15px;
+}
+
+.legal-wrapper h2 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.legal-wrapper p, .legal-wrapper li {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.legal-wrapper ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* Terms */
+
 /*RESPONSIVE DESIGN (TABLET & MOBILE)*/
 
 @media (max-width: 992px) {
