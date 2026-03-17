@@ -1044,6 +1044,21 @@ nav ul li a.active-link::after {
         margin-bottom: 30px;
         padding: 0 10px;
     }
+
+    .info-items-wrapper {
+        width: 100%;
+    }
+
+    .info-item {
+        width: 100%; 
+        align-items: flex-start;
+    }
+
+    .info-text {
+        font-size: 0.95rem;
+        word-wrap: break-word;
+        padding-right: 10px;
+    }
 }
 
 @keyframes accordionOpen {
