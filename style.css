@@ -975,53 +975,12 @@ nav ul li a.active-link::after {
         justify-content: center;
     }
 
-    /* Rotate the chevron icon when tapped */
+    .dropdown { 
+        display: none !important;
+    }
+
     .has-dropdown > a i {
-        transition: transform 0.3s ease;
-    }
-    
-    .has-dropdown.open > a i {
-        transform: rotate(180deg);
-        color: var(--accent);
-    }
-
-    .dropdown {
-        position: static; 
-        display: none;
-        visibility: visible;
-        opacity: 0;
-        transform: none;
-        box-shadow: none;
-        background: rgba(0, 0, 0, 0.03); 
-        border-left: 3px solid var(--accent); 
-        margin-top: 10px;
-        padding: 10px 0;
-        width: 100%;
-        border-radius: 0 5px 5px 0;
-    }
-
-    .has-dropdown.open .dropdown {
-        display: block; 
-        animation: accordionOpen 0.3s ease-out forwards;
-    }
-
-    .dropdown li a {
-        padding: 12px 20px;
-        font-size: 0.95rem;
-        color: #555;
-        text-align: left;
-        transition: 0.2s;
-    }
-
-    .dropdown li a:hover {
-        color: var(--accent);
-        background: rgba(0,0,0,0.05);
-    }
-
-    .nav-contact-btn {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
+        display: none !important; 
     }
 
     .main-title { 

@@ -10,24 +10,25 @@ document.addEventListener("DOMContentLoaded", function() {
     // =========================================
     // A. MOBILE MENU LOGIC (Runs on all pages)
     // =========================================
-    const servicesBtn = document.querySelector('.has-dropdown > a');
-    const dropdownParent = document.querySelector('.has-dropdown');
-    
-    // 1. Toggle the "Services" dropdown on mobile tap
-    if (servicesBtn && dropdownParent) {
-        servicesBtn.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                dropdownParent.classList.toggle('open');
-            }
-        });
-    }
-
-    // 2. Close the entire mobile menu when any normal link is clicked
-    document.querySelectorAll('nav ul li a:not(.has-dropdown > a)').forEach(link => {
-        link.addEventListener('click', () => {
+    document.querySelectorAll('nav ul li a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // 1. Close the mobile menu checkbox
             const menuToggle = document.getElementById('menu-toggle');
             if (menuToggle) menuToggle.checked = false;
+
+            // 2. Check if the link is trying to scroll to a section on the SAME page (e.g., "#services-grid")
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault(); // Stop the browser's default instant jump
+                const targetElement = document.querySelector(href);
+                
+                if (targetElement) {
+                    // Wait 150 milliseconds for the menu to visually close, THEN scroll smoothly
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 150);
+                }
+            }
         });
     });
 
