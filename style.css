@@ -1015,6 +1015,35 @@ nav ul li a.active-link::after {
     .mission-vision h2, .who-we-are h2, .expertise h2 {
         font-size: 2rem;
     }
+
+    .contact-section.full-overlay {
+        width: 100%;
+        left: 0;
+        transform: none;
+        padding: 60px 15px;
+    }
+
+    .contact-wrapper {
+        padding: 30px 20px;
+        margin: 0 15px;
+        width: auto;
+    }
+
+    .file-upload {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .contact-info-panel h3 {
+        font-size: 2rem;
+    }
+    
+    .contact-info-panel p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
 }
 
 @keyframes accordionOpen {
