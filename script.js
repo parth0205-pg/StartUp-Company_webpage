@@ -154,34 +154,69 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // =========================================
-    // D. DISPLAY SUBMISSIONS (Runs ONLY on Submissions Page)
-    // =========================================
-    const submissionsContainer = document.getElementById("submissions-container");
-    
-    if (submissionsContainer) {
-        // Get the data
-        let savedContacts = JSON.parse(localStorage.getItem("pitchtech_contacts")) || [];
+// D SUBMISSIONS PAGE LOGIC (Backend Connected)
+// =========================================
 
-        if (savedContacts.length === 0) {
-            submissionsContainer.innerHTML = "<p style='text-align:center; width:100%; font-size:1.2rem;'>No submissions found.</p>";
-        } else {
-            // Loop through data and generate HTML cards
-            savedContacts.forEach(contact => {
-                // Reusing your existing 'service-category' CSS class for a nice card look!
-                submissionsContainer.innerHTML += `
-                    <div class="service-category reveal">
-                        <h3>${contact.name}</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding-left:0; margin-bottom:8px;"><strong>Email:</strong> ${contact.email}</li>
-                            <li style="padding-left:0; margin-bottom:8px;"><strong>Phone:</strong> ${contact.phone}</li>
-                            <li style="padding-left:0; margin-bottom:8px;"><strong>Country:</strong> ${contact.country}</li>
-                            <li style="padding-left:0; margin-bottom:8px;"><strong>Message:</strong> ${contact.message}</li>
-                        </ul>
-                    </div>
-                `;
-            });
-        }
+function renderSubmissions() {
+    const container = document.getElementById("submissions-container");
+    const btnDeleteAll = document.getElementById("btn-delete-all");
+    
+    if (!container) return;
+
+    // Fetch data from MySQL via Spring Boot
+    fetch("http://localhost:5055/api/contacts")
+        .then(response => response.json())
+        .then(savedContacts => {
+            if (savedContacts.length === 0) {
+                container.innerHTML = "<p style='text-align:center; width:100%; color: #777;'>No submissions found.</p>";
+                if (btnDeleteAll) btnDeleteAll.style.display = "none";
+            } else {
+                if (btnDeleteAll) btnDeleteAll.style.display = "inline-block";
+                container.innerHTML = ""; 
+                
+                savedContacts.forEach((contact, index) => {
+                    // Notice we use contact.id now (from the database) instead of the array index
+                    container.innerHTML += `
+                        <div class="service-category reveal active" id="card-${index}">
+                            <h3>${contact.name}</h3>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding-left:0; margin-bottom:8px;"><strong>Email:</strong> ${contact.email}</li>
+                                <li style="padding-left:0; margin-bottom:8px;"><strong>Phone:</strong> ${contact.phone}</li>
+                                <li style="padding-left:0; margin-bottom:8px;"><strong>Country:</strong> ${contact.country}</li>
+                                <li style="padding-left:0; margin-bottom:8px;"><strong>Message:</strong> ${contact.message}</li>
+                                <li style="padding-left:0; margin-bottom:8px; color: var(--primary);">
+                                    <strong><i class="fas fa-paperclip"></i> File:</strong> ${contact.fileName}
+                                </li>
+                            </ul>
+                            <div class="card-actions" style="margin-top: 20px; display: flex; gap: 10px;">
+                                <button onclick="downloadPDF(${index})" style="background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">PDF</button>
+                                <button onclick="deleteSingleSubmission(${contact.id})" style="background: transparent; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        });
+}
+
+// Global Function: Delete Single from Database
+window.deleteSingleSubmission = function(id) {
+    if (confirm("Delete this submission permanently?")) {
+        fetch(`http://localhost:5055/api/contacts/${id}`, { method: "DELETE" })
+            .then(() => renderSubmissions());
     }
+};
+
+// Global Function: Delete All from Database
+window.deleteAllSubmissions = function() {
+    if (confirm("WARNING: Delete ALL submissions from the database?")) {
+        fetch("http://localhost:5055/api/contacts", { method: "DELETE" })
+            .then(() => renderSubmissions());
+    }
+};
+
+// Ensure cards render when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", renderSubmissions);
 
 
 // =========================================
@@ -281,27 +316,108 @@ function validateForm() {
         firstErrorInput.focus(); 
         return false; 
     } else {
-        const newSubmission = {
-            name: name,
-            email: email,
-            phone: phone,
-            country: country,
-            message: message
-        };
-
-        let submissions = JSON.parse(localStorage.getItem("pitchtech_contacts")) || [];
-// 3. Add the new entry to the array
-        submissions.push(newSubmission);
-
-        // 4. Save the updated array back into LocalStorage
-        localStorage.setItem("pitchtech_contacts", JSON.stringify(submissions));
-
-        alert("Form submitted successfully! PitchTech will be in touch."); 
+        // --- BACKEND MYSQL SUBMISSION LOGIC ---
         
-        // 5. Redirect the user to the new submissions page
-        window.location.href = "submissions.html";
+        // 1. Bundle all data perfectly for Spring Boot
+        const formData = new FormData();
+        formData.append("name", nameInput.value.trim());
+        formData.append("email", emailInput.value.trim());
+        formData.append("phone", phoneInput.value.trim());
+        formData.append("country", countryInput.value);
+        formData.append("message", messageInput.value.trim());
         
-        // Return false to prevent the default HTML form submission from refreshing the page
-        return false; 
+        // 2. Attach the file if one exists
+        const fileInput = document.getElementById('attachment');
+        if (fileInput && fileInput.files.length > 0) {
+            formData.append("attachment", fileInput.files[0]);
+        }
+
+        // 3. Send it to your Java Backend
+        fetch("http://localhost:5055/api/contacts", {
+            method: "POST",
+            body: formData 
+        })
+        .then(response => {
+            alert("Form securely saved to MySQL Database!");
+            window.location.href = "submissions.html"; // Redirect to the display page
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Server error. Is Spring Boot running?");
+        });
+        
+        return false; // IMPORTANT: Stops the browser from doing a native HTML refresh
     }
+
+    // =========================================
+// 4. FETCH DATA FROM MYSQL (Submissions Page)
+// =========================================
+function fetchDatabaseSubmissions() {
+    const container = document.getElementById("submissions-container");
+    
+    // Only run this if we are actually on the submissions.html page
+    if (!container) return; 
+
+    // Ask Spring Boot for the data
+    fetch("http://localhost:5055/api/contacts")
+        .then(response => response.json())
+        .then(data => {
+            container.innerHTML = ""; // Clear the loading text
+            
+            if (data.length === 0) {
+                container.innerHTML = "<p style='text-align:center; width:100%;'>No submissions in database yet.</p>";
+                return;
+            }
+
+            // Loop through the MySQL rows and create HTML cards
+            data.forEach(contact => {
+                container.innerHTML += `
+                    <div class="service-category reveal active">
+                        <h3>${contact.name}</h3>
+                        <p style="font-size: 0.85rem; color: #888; margin-top: -15px; margin-bottom: 15px;">
+                            ID: ${contact.id} | ${contact.timestamp ? contact.timestamp.split('T')[0] : 'No Date'}
+                        </p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom:8px;"><strong>Email:</strong> ${contact.email}</li>
+                            <li style="margin-bottom:8px;"><strong>Phone:</strong> ${contact.phone}</li>
+                            <li style="margin-bottom:8px;"><strong>Country:</strong> ${contact.country}</li>
+                            <li style="margin-bottom:8px;"><strong>Message:</strong> ${contact.message}</li>
+                            <li style="margin-bottom:8px; color: var(--primary);">
+                                <strong><i class="fas fa-paperclip"></i> File:</strong> ${contact.fileName || 'None'}
+                            </li>
+                        </ul>
+                    </div>
+                `;
+            });
+        })
+        .catch(error => {
+            container.innerHTML = "<p style='text-align:center; color:red;'>Failed to connect to backend database.</p>";
+        });
+
+// Run the function when the page loads
+document.addEventListener("DOMContentLoaded", fetchDatabaseSubmissions);
+
+// Global Function: Download as PDF
+window.downloadPDF = function(index) {
+    // Grab the specific HTML card
+    const element = document.getElementById(`card-${index}`);
+    
+    // Clone it so we don't accidentally delete the buttons on the real webpage
+    const clone = element.cloneNode(true);
+    const actionButtons = clone.querySelector('.card-actions');
+    if (actionButtons) actionButtons.remove();
+
+    // html2pdf configuration
+    const opt = {
+        margin:       0.5,
+        filename:     `PitchTech_Submission.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 }, 
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // Generate and save
+    html2pdf().set(opt).from(clone).save();
+};
+}
 }

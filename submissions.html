@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <header class="main-header">
@@ -44,14 +45,15 @@
     <main>
         <section class="section-padding light-bg" style="min-height: 80vh; margin-top: 80px;">
             <div class="container">
-                <div class="contact-header">
-                    <h2>Form Submissions</h2>
-                    <p>Data retrieved securely from your browser's LocalStorage.</p>
+                
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <button id="btn-delete-all" onclick="deleteAllSubmissions()" style="display: none; background: #ff4d4d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                        <i class="fas fa-trash-alt"></i> Delete All
+                    </button>
                 </div>
-                
                 <div id="submissions-container" class="services-grid">
-                    </div>
-                
+                    <p style="text-align:center; width:100%;">Loading data from database...</p>
+                </div>
             </div>
         </section>
     </main>
