@@ -153,6 +153,36 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// =========================================
+    // D. DISPLAY SUBMISSIONS (Runs ONLY on Submissions Page)
+    // =========================================
+    const submissionsContainer = document.getElementById("submissions-container");
+    
+    if (submissionsContainer) {
+        // Get the data
+        let savedContacts = JSON.parse(localStorage.getItem("pitchtech_contacts")) || [];
+
+        if (savedContacts.length === 0) {
+            submissionsContainer.innerHTML = "<p style='text-align:center; width:100%; font-size:1.2rem;'>No submissions found.</p>";
+        } else {
+            // Loop through data and generate HTML cards
+            savedContacts.forEach(contact => {
+                // Reusing your existing 'service-category' CSS class for a nice card look!
+                submissionsContainer.innerHTML += `
+                    <div class="service-category reveal">
+                        <h3>${contact.name}</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Email:</strong> ${contact.email}</li>
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Phone:</strong> ${contact.phone}</li>
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Country:</strong> ${contact.country}</li>
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Message:</strong> ${contact.message}</li>
+                        </ul>
+                    </div>
+                `;
+            });
+        }
+    }
+
 
 // =========================================
 // 2. DYNAMIC CONTENT FUNCTIONS
@@ -249,9 +279,29 @@ function validateForm() {
     if (!isValid) {
         firstErrorInput.scrollIntoView({ behavior: "smooth", block: "center" });
         firstErrorInput.focus(); 
+        return false; 
     } else {
-        alert("Form submitted successfully! PitchTech will be in touch."); 
-    }
+        const newSubmission = {
+            name: name,
+            email: email,
+            phone: phone,
+            country: country,
+            message: message
+        };
 
-    return isValid; 
+        let submissions = JSON.parse(localStorage.getItem("pitchtech_contacts")) || [];
+// 3. Add the new entry to the array
+        submissions.push(newSubmission);
+
+        // 4. Save the updated array back into LocalStorage
+        localStorage.setItem("pitchtech_contacts", JSON.stringify(submissions));
+
+        alert("Form submitted successfully! PitchTech will be in touch."); 
+        
+        // 5. Redirect the user to the new submissions page
+        window.location.href = "submissions.html";
+        
+        // Return false to prevent the default HTML form submission from refreshing the page
+        return false; 
+    }
 }

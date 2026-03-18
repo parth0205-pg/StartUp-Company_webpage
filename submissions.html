@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | PitchTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Company Logo" class="header-logo">
+            <div class="logo-text-group">
+                <span class="logo-text">PitchTech</span>
+                <span class="logo-slogan">Architecting Digital Excellence</span>
+            </div>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li class="has-dropdown">
+                    <a href="index.html#services-grid">Services <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a href="index.html#cs">Custom Software</a></li>
+                        <li><a href="index.html#ai-dev">AI Development</a></li>
+                        <li><a href="index.html#web-dev">Web Development</a></li>
+                        <li><a href="index.html#mobile-app">Mobile Apps</a></li>
+                        <li><a href="index.html#ui-ux">UI/UX Design</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html" class="nav-contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section-padding light-bg" style="min-height: 80vh; margin-top: 80px;">
+            <div class="container">
+                <div class="contact-header">
+                    <h2>Form Submissions</h2>
+                    <p>Data retrieved securely from your browser's LocalStorage.</p>
+                </div>
+                
+                <div id="submissions-container" class="services-grid">
+                    </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-container">
+            <div class="social-icons">
+                <a href="#" class="icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="icon instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="icon x-twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="mailto:pitchtech@gmail.com" class="icon gmail"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <br>
+        <div class="footer-content">
+            <p>Copyright &copy; 2026 PitchTech. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms</a> | <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
