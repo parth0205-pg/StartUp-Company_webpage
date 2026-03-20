@@ -242,6 +242,24 @@ function populateCountries() {
     });
 }
 
+// --- TOAST NOTIFICATION FUNCTION ---
+function showToast(message, isSuccess = true) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    
+    // Reset classes
+    toast.className = "show";
+    if (isSuccess) {
+        toast.classList.add("success");
+    } else {
+        toast.classList.add("error");
+    }
+
+    // Hide after 3.5 seconds
+    setTimeout(function() { 
+        toast.className = toast.className.replace("show", ""); 
+    }, 3500);
+}
 
 // =========================================
 // 3. FORM VALIDATION
@@ -321,7 +339,12 @@ function validateForm() {
         // --- BACKEND MYSQL SUBMISSION LOGIC ---
         
         // 1. Bundle all data perfectly for Spring Boot
-        const companyInput = document.getElementById("company");
+        const submitBtn = document.querySelector(".submit-btn");
+        const originalBtnText = submitBtn.innerText;
+        
+        // Change UI to Loading state
+        submitBtn.innerText = "Submitting...";
+        submitBtn.disabled = true;
 
         const formData = new FormData();
         formData.append("name", nameInput.value.trim());
@@ -343,16 +366,27 @@ function validateForm() {
             body: formData 
         })
         .then(response => {
-            alert("Form securely saved to MySQL Database!");
-            window.location.href = "submissions.html"; // Redirect to the display page
+            if (!response.ok) throw new Error("Server rejected request");
+            
+            // Show sleek success toast instead of alert
+            showToast("Success! PitchTech will be in touch.", true);
+            
+            // Wait 2 seconds so the user can see the toast, then redirect
+            setTimeout(() => {
+                window.location.href = "submissions.html";
+            }, 2000);
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Server error. Is Spring Boot running?");
+            // Show error toast
+            showToast("Server error. Please try again later.", false);
+            
+            // Reset the button so they can try again
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
         });
         
-        return false; // IMPORTANT: Stops the browser from doing a native HTML refresh
-    }
+        return false;
 
     // =========================================
 // 4. FETCH DATA FROM MYSQL (Submissions Page)
@@ -424,5 +458,6 @@ window.downloadPDF = function(index) {
     // Generate and save
     html2pdf().set(opt).from(clone).save();
 };
+}
 }
 }
