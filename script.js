@@ -294,11 +294,13 @@ function validateForm() {
     }
 
     // Phone Check
-    const phonePattern = /^(\+\d{1,3}\s?)?\d{10}$/;
-    if (phone === "" || phone === "+") {
-        showError(phoneInput, "phone-error", "Please enter your Phone Number");
-    } else if (!phonePattern.test(phone)) {
-        showError(phoneInput, "phone-error", "Please enter a valid 10-digit number after the country code");
+    const justDialCodePattern = /^(\+\d{1,3}\s?)?$/;
+    const validPhonePattern = /^(\+\d{1,3}\s?)?\d{10}$/;
+
+    if (phone !== "" && !justDialCodePattern.test(phone)) {
+        if (!validPhonePattern.test(phone)) {
+            showError(phoneInput, "phone-error", "If provided, please enter exactly 10 digits.");
+        }
     }
 
     // Country Check 
@@ -319,10 +321,13 @@ function validateForm() {
         // --- BACKEND MYSQL SUBMISSION LOGIC ---
         
         // 1. Bundle all data perfectly for Spring Boot
+        const companyInput = document.getElementById("company");
+
         const formData = new FormData();
         formData.append("name", nameInput.value.trim());
         formData.append("email", emailInput.value.trim());
         formData.append("phone", phoneInput.value.trim());
+        formData.append("company", companyInput.value.trim()); // NEW COMPANY DATA
         formData.append("country", countryInput.value);
         formData.append("message", messageInput.value.trim());
         

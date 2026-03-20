@@ -317,6 +317,7 @@ nav ul li a:hover {
 
 .form-group {
     margin-bottom: 10px;
+    position: relative;
 }
 
 .form-group input, 
@@ -328,6 +329,35 @@ nav ul li a:hover {
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
+}
+
+.required-field::after {
+    content: '*';
+    color: #ff4d4d;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.optional-badge {
+    position: absolute;
+    right: 15px;
+    top: 16px;
+    font-size: 0.85rem;
+    color: #aaa;
+    pointer-events: none;
+}
+
+.form-group:not(.required-field) input {
+    padding-right: 85px; 
+}
+
+.required-field select ~ ::after, 
+.required-field:nth-child(5)::after {
+    right: 35px;
 }
 
 .form-group select {
