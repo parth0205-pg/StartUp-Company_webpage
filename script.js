@@ -387,6 +387,7 @@ function validateForm() {
         });
         
         return false;
+    }
 
     // =========================================
 // 4. FETCH DATA FROM MYSQL (Submissions Page)
@@ -458,6 +459,5 @@ window.downloadPDF = function(index) {
     // Generate and save
     html2pdf().set(opt).from(clone).save();
 };
-}
 }
 }
