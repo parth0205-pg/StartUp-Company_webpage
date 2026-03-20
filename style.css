@@ -77,7 +77,7 @@ body {
 }
 
 .logo-text {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     font-weight: 700;
     color: var(--dark);
     letter-spacing: -0.5px;
@@ -115,7 +115,7 @@ nav ul li a {
     text-decoration: none;
     color: var(--dark);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 1vw, 1rem);
     transition: 0.3s;
 }
 
@@ -209,25 +209,33 @@ nav ul li a:hover {
 }
 
 .hero-text {
-    width: 50%;
-    padding-right: 20px;
+    width: 55%; 
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .main-title {
-    font-size: 3rem;
-    font-weight: 500;
-    line-height: 1;
+    font-size: clamp(2.5rem, 4vw, 4.5rem); 
+    font-weight: 600;
+    line-height: 1.15;
     color: #000000;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-top: 0; 
+    margin-bottom: 25px;
 }
 
 .hero-description {
-    font-size: 1.15rem;
-    color: #000000;
+    font-size: clamp(1rem, 1.25vw, 1.35rem); 
+    color: #333333;
     font-weight: 400;
     line-height: 1.6;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
+    max-width: 90%;
+}
+
+.hero-description br {
+    display: none; 
 }
 
 .btn-start {
@@ -241,6 +249,7 @@ nav ul li a:hover {
     border-radius: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255, 123, 41, 0.3);
+    width: max-content;
 }
 
 .btn-start:hover {
@@ -252,14 +261,14 @@ nav ul li a:hover {
 /* --- Features & Services Grid --- */
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
     margin-bottom: 50px;
 }
 
 .feature-container, .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
 }
 
 .feature-card, .service-card {
@@ -279,7 +288,7 @@ nav ul li a:hover {
 }
 
 .service-card i, .feature-card i {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
     color: var(--accent);
     margin-bottom: 20px;
 }
@@ -292,7 +301,7 @@ nav ul li a:hover {
 }
 
 .contact-header h2 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
     color: var(--dark);
     margin-bottom: 10px;
 }
@@ -462,14 +471,14 @@ nav ul li a:hover {
 
 .contact-info-panel h3 {
     color: var(--white);
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
     margin-bottom: 20px;
 }
 
 .contact-info-panel p {
     max-width: 600px;
     margin: 0 auto 50px auto;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 1.5vw, 1.35rem);
     color: #e2e8f0;
     line-height: 1.8;
 }
@@ -533,7 +542,7 @@ nav ul li a:hover {
 
 .social-container h3 {
     margin-bottom: 25px;
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
     color: var(--dark);
 }
 
@@ -631,7 +640,7 @@ footer {
 }
 
 .about-title {
-    font-size: 3.5rem; 
+    font-size: clamp(2.5rem, 5vw, 4.5rem); 
     font-weight: 500;
     line-height: 1;
     color: #ffffff;
@@ -641,14 +650,14 @@ footer {
 }
 
 .about-subtitle {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
     color: #ffffff;
     font-weight: 400;
     margin-bottom: 20px;
 }
 
 .about-description {
-    font-size: 1.15rem;
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
     color: var(--dark);
     font-weight: 400;
     line-height: 1.6;
@@ -661,7 +670,7 @@ footer {
 
 .mission-vision h2, .who-we-are h2, .expertise h2 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
     color: var(--dark);
     margin-bottom: 50px;
 }
@@ -688,13 +697,13 @@ footer {
 
 .content-item h3 {
     color: var(--primary);
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 2vw, 2rem);
     margin-bottom: 15px;
 }
 
 .content-item p {
     color: #555;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
 }
 
 /* --- Who We Are Section --- */
@@ -715,7 +724,7 @@ footer {
 .who-we-are p {
     max-width: 800px;
     margin: 0 auto;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
     color: #e2e8f0;
     line-height: 1.8;
 }
@@ -737,7 +746,7 @@ footer {
 }
 
 .service-category h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 2vw, 1.5rem);
     color: var(--dark);
     margin-bottom: 20px;
     padding-bottom: 15px;
@@ -779,7 +788,7 @@ footer {
 }
 
 .cta-section p {
-    font-size: 1.2rem;
+    font-size: clamp(1.1rem, 1.5vw, 1.2rem);
     color: #000000;
     margin-bottom: 40px;
 }
@@ -815,7 +824,7 @@ footer {
 }
         
 .legal-wrapper h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 3.5vw, 3rem);
     color: var(--dark);
     margin-bottom: 10px;
     border-bottom: 2px solid var(--accent);
@@ -823,14 +832,14 @@ footer {
 }
 
 .legal-wrapper h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
     color: var(--primary);
     margin-top: 30px;
     margin-bottom: 15px;
 }
 
 .legal-wrapper p, .legal-wrapper li {
-    font-size: 1.05rem;
+    font-size: clamp(1rem, 1.2vw, 1.05rem);
     color: #555;
     line-height: 1.7;
     margin-bottom: 15px;
@@ -881,6 +890,10 @@ nav ul li a.active-link::after {
 /*RESPONSIVE DESIGN (TABLET & MOBILE)*/
 
 @media (max-width: 992px) {
+    .feature-container, .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .hero-fullscreen {
         display: flex;
         flex-direction: column;
@@ -922,11 +935,13 @@ nav ul li a.active-link::after {
     .contact-image-container {
         height: 300px;
     }
-
-    .main-title { font-size: 2.8rem; }
 }
 
 @media (max-width: 768px) {
+    .feature-container, .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .main-header.scrolled {
         padding: 10px 20px;
     }
@@ -983,17 +998,9 @@ nav ul li a.active-link::after {
         display: none !important; 
     }
 
-    .main-title { 
-        font-size: 2.2rem; 
-        margin-bottom: 20px;
-    }
-
     .hero-description {
-        font-size: 1rem;
         margin-bottom: 30px;
     }
-
-    .hero-description br { display: none; }
 
     .hero-bg-image {
         height: 300px;
@@ -1010,10 +1017,6 @@ nav ul li a.active-link::after {
     
     .mission-vision, .who-we-are, .expertise, .cta-section {
         padding: 50px 0;
-    }
-
-    .mission-vision h2, .who-we-are h2, .expertise h2 {
-        font-size: 2rem;
     }
 
     .contact-section.full-overlay {
@@ -1033,16 +1036,6 @@ nav ul li a.active-link::after {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
-    }
-
-    .contact-info-panel h3 {
-        font-size: 2rem;
-    }
-    
-    .contact-info-panel p {
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-        padding: 0 10px;
     }
 
     .info-items-wrapper {
@@ -1069,5 +1062,16 @@ nav ul li a.active-link::after {
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* --- High-Resolution Display Adjustments --- */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px; 
+    }
+    
+    .hero-text {
+        width: 50%;
     }
 }
