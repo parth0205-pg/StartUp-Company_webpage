@@ -309,7 +309,7 @@ window.deleteAllSubmissions = function() {
     }
 };
 
-// Global Function: Download as PDF
+// Global Function: Download Custom Professional PDF
 window.downloadPDF = function(index) {
     const element = document.getElementById(`card-${index}`);
     const clone = element.cloneNode(true);
