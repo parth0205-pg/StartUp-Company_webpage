@@ -5,7 +5,7 @@
 // --- TOAST NOTIFICATION FUNCTION ---
 function showToast(message, isSuccess = true) {
     const toast = document.getElementById("toast");
-    if (!toast) return; // Failsafe if the toast div isn't on the page
+    if (!toast) return;
 
     toast.textContent = message;
     toast.className = "show";
@@ -111,6 +111,9 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    
+    // Auto-trigger rendering if we are on the submissions page
+    renderSubmissions();
 });
 
 
@@ -121,15 +124,13 @@ function validateForm() {
     let isValid = true; 
     let firstErrorInput = null; 
 
-    // Get Inputs
     const nameInput = document.getElementById("name");
     const emailInput = document.getElementById("email");
     const phoneInput = document.getElementById("phone");
-    const companyInput = document.getElementById("company"); // Added Company
+    const companyInput = document.getElementById("company"); 
     const countryInput = document.getElementById("country");
     const messageInput = document.getElementById("message");
 
-    // Get Values
     const name = nameInput ? nameInput.value.trim() : "";
     const email = emailInput ? emailInput.value.trim() : "";
     const phone = phoneInput ? phoneInput.value.trim() : "";
@@ -150,32 +151,24 @@ function validateForm() {
 
     clearErrors();
     
-    // 1. Name Check
     if (name === "") showError(nameInput, "name-error", "Please enter your Name");
 
-    // 2. Email Check
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "" || !emailPattern.test(email)) {
         showError(emailInput, "email-error", "Please enter a valid Email Address");
     }
 
-    // 3. Strict Optional Phone Check
     const justDialCodePattern = /^(\+\d{1,3}\s?)?$/; 
     const validPhonePattern = /^(\+\d{1,3}\s?)?\d{10}$/; 
-    
     if (phone !== "" && !justDialCodePattern.test(phone)) {
         if (!validPhonePattern.test(phone)) {
             showError(phoneInput, "phone-error", "If provided, please enter exactly 10 digits.");
         }
     }
 
-    // 4. Country Check 
     if (country === "" || country === null) showError(countryInput, "country-error", "Please select a Country");
-
-    // 5. Message Check
     if (message === "") showError(messageInput, "message-error", "Please enter a Description");
 
-    // --- SUBMIT LOGIC ---
     if (!isValid) {
         firstErrorInput.scrollIntoView({ behavior: "smooth", block: "center" });
         firstErrorInput.focus(); 
@@ -184,7 +177,6 @@ function validateForm() {
         const submitBtn = document.querySelector(".submit-btn");
         const originalBtnText = submitBtn.innerText;
         
-        // UI Feedback: Loading state
         submitBtn.innerText = "Submitting...";
         submitBtn.disabled = true;
 
@@ -192,7 +184,7 @@ function validateForm() {
         formData.append("name", name);
         formData.append("email", email);
         formData.append("phone", phone);
-        if (companyInput) formData.append("company", companyInput.value.trim()); // Send Company
+        if (companyInput) formData.append("company", companyInput.value.trim()); 
         formData.append("country", country);
         formData.append("message", message);
         
@@ -201,7 +193,6 @@ function validateForm() {
             formData.append("attachment", fileInput.files[0]);
         }
 
-        // Send to Spring Boot (PORT 5055)
         fetch("http://localhost:5055/api/contacts", {
             method: "POST",
             body: formData 
@@ -223,10 +214,9 @@ function validateForm() {
             submitBtn.disabled = false;
         });
         
-        return false; // Crucial: Stops the native HTML refresh
+        return false; 
     }
-} // <--- THIS WAS THE MISSING BRACKET!
-
+}
 
 // =========================================
 // 3. HELPER FUNCTIONS
@@ -249,82 +239,152 @@ function populateCountries() {
     });
 }
 
+// =========================================
+// 4. SUBMISSIONS PAGE LOGIC (Secured + PDF)
+// =========================================
 
-// =========================================
-// 4. SUBMISSIONS PAGE LOGIC (Backend Connected)
-// =========================================
+let adminAuthToken = "";
+
+function getAdminAuth() {
+    if (!adminAuthToken) {
+        const username = prompt("Admin Locked. Enter Username (Hint: pitchtech_admin):");
+        if (username === null) return false; 
+        
+        const password = prompt("Enter Password (Hint: secure123):");
+        if (password === null) return false;
+
+        adminAuthToken = "Basic " + btoa(username + ":" + password);
+    }
+    return adminAuthToken;
+}
+
 function renderSubmissions() {
     const container = document.getElementById("submissions-container");
     const btnDeleteAll = document.getElementById("btn-delete-all");
     
-    if (!container) return;
+    if (!container) return; 
 
-    fetch("http://localhost:5055/api/contacts")
-        .then(response => response.json())
-        .then(savedContacts => {
-            if (savedContacts.length === 0) {
-                container.innerHTML = "<p style='text-align:center; width:100%; color: #777;'>No submissions found.</p>";
-                if (btnDeleteAll) btnDeleteAll.style.display = "none";
-            } else {
-                if (btnDeleteAll) btnDeleteAll.style.display = "inline-block";
-                container.innerHTML = ""; 
-                
-                savedContacts.forEach((contact, index) => {
-                    container.innerHTML += `
-                        <div class="service-category reveal active" id="card-${index}">
-                            <h3>${contact.name} ${contact.company ? `<span style="font-size:0.9rem; color:#888;">(${contact.company})</span>` : ''}</h3>
-                            <ul style="list-style: none; padding: 0;">
-                                <li style="padding-left:0; margin-bottom:8px;"><strong>Email:</strong> ${contact.email}</li>
-                                <li style="padding-left:0; margin-bottom:8px;"><strong>Phone:</strong> ${contact.phone}</li>
-                                <li style="padding-left:0; margin-bottom:8px;"><strong>Country:</strong> ${contact.country}</li>
-                                <li style="padding-left:0; margin-bottom:8px;"><strong>Message:</strong> ${contact.message}</li>
-                                <li style="padding-left:0; margin-bottom:8px; color: var(--primary);">
-                                    <strong><i class="fas fa-paperclip"></i> File:</strong> ${contact.fileName || 'None'}
-                                </li>
-                            </ul>
-                            <div class="card-actions" style="margin-top: 20px; display: flex; gap: 10px;">
-                                <button onclick="downloadPDF(${index})" style="background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">PDF</button>
-                                <button onclick="deleteSingleSubmission(${contact.id})" style="background: transparent; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Delete</button>
-                            </div>
+    const token = getAdminAuth();
+    if (!token) {
+        container.innerHTML = "<p style='text-align:center; color:red;'>Access Denied. Reload page to log in.</p>";
+        return;
+    }
+
+    fetch("http://localhost:5055/api/contacts", {
+        headers: { "Authorization": token }
+    })
+    .then(response => {
+        if (!response.ok) {
+            adminAuthToken = ""; 
+            throw new Error("Invalid Credentials");
+        }
+        return response.json();
+    })
+    .then(savedContacts => {
+        window.submissionsData = savedContacts; 
+
+        if (savedContacts.length === 0) {
+            container.innerHTML = "<p style='text-align:center; width:100%; color: #777;'>No submissions found.</p>";
+            if (btnDeleteAll) btnDeleteAll.style.display = "none";
+        } else {
+            if (btnDeleteAll) btnDeleteAll.style.display = "inline-block";
+            container.innerHTML = ""; 
+            
+            savedContacts.forEach((contact, index) => {
+                container.innerHTML += `
+                    <div class="service-category reveal active" id="card-${index}">
+                        <h3>${contact.name} ${contact.company ? `<span style="font-size:0.9rem; color:#888;">(${contact.company})</span>` : ''}</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Email:</strong> ${contact.email}</li>
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Phone:</strong> ${contact.phone}</li>
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Country:</strong> ${contact.country}</li>
+                            <li style="padding-left:0; margin-bottom:8px;"><strong>Message:</strong> ${contact.message}</li>
+                            <li style="padding-left:0; margin-bottom:8px; color: var(--primary);">
+                                <strong><i class="fas fa-paperclip"></i> File:</strong> ${contact.fileName || 'None'}
+                            </li>
+                        </ul>
+                        <div class="card-actions" style="margin-top: 20px; display: flex; gap: 10px;">
+                            <button onclick="downloadPDF(${index})" style="background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">PDF</button>
+                            <button onclick="deleteSingleSubmission(${contact.id})" style="background: transparent; color: #ff4d4d; border: 1px solid #ff4d4d; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Delete</button>
                         </div>
-                    `;
-                });
-            }
-        });
+                    </div>
+                `;
+            });
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Authentication Failed or Server Offline.");
+        container.innerHTML = "<p style='text-align:center; color:red;'>Access Denied or Backend not running.</p>";
+    });
 }
 
-// Global Function: Delete Single from Database
 window.deleteSingleSubmission = function(id) {
     if (confirm("Delete this submission permanently?")) {
-        fetch(`http://localhost:5055/api/contacts/${id}`, { method: "DELETE" })
-            .then(() => renderSubmissions());
+        fetch(`http://localhost:5055/api/contacts/${id}`, { 
+            method: "DELETE",
+            headers: { "Authorization": adminAuthToken }
+        }).then(() => renderSubmissions());
     }
 };
 
-// Global Function: Delete All from Database
 window.deleteAllSubmissions = function() {
     if (confirm("WARNING: Delete ALL submissions from the database?")) {
-        fetch("http://localhost:5055/api/contacts", { method: "DELETE" })
-            .then(() => renderSubmissions());
+        fetch("http://localhost:5055/api/contacts", { 
+            method: "DELETE",
+            headers: { "Authorization": adminAuthToken }
+        }).then(() => renderSubmissions());
     }
 };
 
-// Global Function: Download Custom Professional PDF
-window.downloadPDF = function(index) {
-    const element = document.getElementById(`card-${index}`);
-    const clone = element.cloneNode(true);
-    const actionButtons = clone.querySelector('.card-actions');
-    if (actionButtons) actionButtons.remove();
+window.downloadPDF = async function(index) {
+    const contact = window.submissionsData[index];
+    if (!contact) return;
 
-    const opt = {
-        margin:       0.5,
-        filename:     `PitchTech_Submission.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 }, 
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+    const cardElement = document.getElementById(`card-${index}`);
+    const pdfBtn = cardElement.querySelector('button');
+    const originalBtnText = pdfBtn.innerHTML;
+    pdfBtn.innerHTML = "Generating...";
+    pdfBtn.disabled = true;
 
-    html2pdf().set(opt).from(clone).save();
+    const refId = "PT-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random() * 9000);
+    const submitDate = contact.timestamp ? contact.timestamp.split('T')[0] : new Date().toLocaleDateString();
+    const formattedCountry = contact.country ? contact.country.replace('-', ' ').toUpperCase() : 'N/A';
+
+    try {
+        const response = await fetch('pdf-template.html');
+        if (!response.ok) throw new Error("Could not load PDF template");
+        let templateHtml = await response.text();
+
+        templateHtml = templateHtml
+            .replace('{{DATE}}', submitDate)
+            .replace('{{REF_ID}}', refId)
+            .replace('{{NAME}}', contact.name)
+            .replace('{{COMPANY}}', contact.company || 'Not Provided')
+            .replace('{{EMAIL}}', contact.email)
+            .replace('{{PHONE}}', contact.phone || 'Not Provided')
+            .replace('{{COUNTRY}}', formattedCountry)
+            .replace('{{FILE}}', contact.fileName || 'None')
+            .replace('{{MESSAGE}}', contact.message);
+
+        const container = document.createElement('div');
+        container.innerHTML = templateHtml;
+
+        const opt = {
+            margin:       0,
+            filename:     `PitchTech_Submission_${contact.name.replace(/\s+/g, '_')}.pdf`,
+            image:        { type: 'jpeg', quality: 1 },
+            html2canvas:  { scale: 2, useCORS: true }, 
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+
+        await html2pdf().set(opt).from(container).save();
+
+    } catch (error) {
+        console.error("PDF Generation Error:", error);
+        alert("Failed to generate PDF. Make sure your local server is running.");
+    } finally {
+        pdfBtn.innerHTML = originalBtnText;
+        pdfBtn.disabled = false;
+    }
 };
-
-document.addEventListener("DOMContentLoaded", renderSubmissions);
