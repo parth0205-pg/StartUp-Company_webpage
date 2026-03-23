@@ -1,32 +1,31 @@
-# PitchTech Landing Page
+# PitchTech Full-Stack Website (Frontend)
 
-A modern, fully responsive landing page for PitchTech, a tech consultancy and software development agency. This project is built entirely with pure HTML and CSS, focusing on clean design, semantic structure, and lightweight performance without the need for JavaScript.
+A modern, fully responsive, and dynamic multi-page website for PitchTech, a tech consultancy and software development agency. Originally built as a static template, this project has evolved into a fully functional frontend application integrated with a Java Spring Boot and MySQL REST API.
 
-Web page Link : https://parth0205-pg.github.io/StartUp-Company_webpage/
+**Live Static Demo:** [PitchTech on GitHub Pages](https://parth0205-pg.github.io/StartUp-Company_webpage/) 
+*(Note: Form submissions and the Admin Dashboard require the local Spring Boot backend to be running).*
 
-## Features
+## Key Features
 
-*   **Modern Hero Section:** Features a unique diagonal layout using CSS `clip-path` and a striking background image.
-*   **Glass-morphism Navigation:** A fixed, full-width sticky header with a semi-transparent, blurred background that sits flush against the edges of the screen.
-*   **Zero JavaScript:** All interactive elements, including dropdown menus, hover states, and smooth scrolling, are handled purely through CSS.
-*   **Fully Responsive:** Optimized for all screen sizes (Desktop, Tablet, and Mobile) using CSS media queries.
-*   **Interactive UI/UX:** Smooth `transition` effects on buttons, service cards, and social icons to enhance user experience.
+* **Multi-Page Architecture:** Includes Home, About, Contact, Privacy Policy, Terms of Service, and a secure Admin Submissions dashboard.
+* **Dynamic Contact Form:** Features real-time client-side validation, auto-formatting country dial codes, and multipart file attachment handling.
+* **Modern UI Feedback:** Replaces default browser alerts with sleek, animated Toast Notifications and dynamic button-loading states.
+* **Admin Dashboard (Secured):** A protected `/submissions.html` route that fetches data from the Spring Boot database using HTTP Basic Authentication tokens.
+* **Client-Side PDF Generation:** Uses `html2pdf.js` to asynchronously fetch a hidden HTML template (`pdf-template.html`), inject specific client data, and generate a highly professional, A4-formatted PDF record directly in the browser.
+* **Fluid & Responsive Typography:** Uses CSS `clamp()` for fluid typography that scales perfectly across ultrawide monitors, laptops, tablets, and mobile devices.
+* **Glass-morphism Navigation:** A sticky header with a semi-transparent, blurred background.
 
 ## Tech Stack
 
-*   **HTML5:** Semantic markup for structure and accessibility.
-*   **CSS3:** Custom styling, Flexbox layouts, Grid layouts, and CSS animations/transitions.
-*   **Google Fonts:** Utilizing **Roboto Slab** for a professional, highly readable typography pairing.
-*   **FontAwesome (v6.5.1):** Scalable vector icons for the features, services, and footer sections.
+**Frontend:**
+* **HTML5:** Semantic markup and multi-page routing.
+* **CSS3:** Flexbox, Grid, CSS animations/transitions, and Fluid Typography.
+* **Vanilla JavaScript (ES6+):** DOM manipulation, Fetch API, asynchronous data handling (`async/await`), and form logic.
+* **Libraries:** `html2pdf.js` (for PDF document generation), FontAwesome v6.5.1 (Icons), Google Fonts (Roboto Slab).
 
-## Project Status: Active Development
-
-This repository currently serves as a static UI template and visual outlook for a startup landing page. It is actively being developed. 
-
-**Upcoming features include:**
-* Implementation of dynamic JavaScript functionalities.
-* A fully functional backend integration for the Contact Us form.
-* Extended multi-page routing and interactive UI components.
+**Backend Requirements:**
+* **Java Spring Boot:** REST API listening on `http://localhost:5055`.
+* **Database:** MySQL (Hibernate/JPA) handling the `contact_submissions` table.
 
 ## Project Structure
 
@@ -34,9 +33,19 @@ This repository currently serves as a static UI template and visual outlook for 
 pitchtech-landing-page/
 │
 ├── images/
-│   ├── logo.png          # PitchTech company logo
-│   └── home.png           # Hero section background image
+│   ├── logo.png             # PitchTech company logo
+│   ├── home.png             # Hero section background image
+│   ├── about-us.png         # About page background
+│   └── company.png          # Contact page background
 │
-├── index.html             # Main HTML structure
-├── style.css              # Main stylesheet
-└── README.md              # Project documentation
+├── index.html               # Main Landing Page
+├── about.html               # About Us Page
+├── contact.html             # Dynamic Contact Form Page
+├── submissions.html         # Secured Admin Dashboard
+├── pdf-template.html        # Hidden template for PDF generation
+├── privacy-policy.html      # Legal - Privacy
+├── terms.html               # Legal - Terms of Service
+│
+├── style.css                # Global stylesheet (Fluid design)
+├── script.js                # Core JS logic (Validation, Fetch API, PDF gen)
+└── README.md                # Project documentation
