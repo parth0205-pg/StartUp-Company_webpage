@@ -1,32 +1,8 @@
-/* =========================================
-   PITCHTECH MAIN JAVASCRIPT
-   ========================================= */
+// 1. smooth scroll function
 
-// --- TOAST NOTIFICATION FUNCTION ---
-function showToast(message, isSuccess = true) {
-    const toast = document.getElementById("toast");
-    if (!toast) return;
-
-    toast.textContent = message;
-    toast.className = "show";
-    
-    if (isSuccess) {
-        toast.classList.add("success");
-    } else {
-        toast.classList.add("error");
-    }
-
-    setTimeout(function() { 
-        toast.className = toast.className.replace("show", ""); 
-    }, 3500);
-}
-
-// =========================================
-// 1. RUN ON PAGE LOAD (Event Listeners)
-// =========================================
 document.addEventListener("DOMContentLoaded", function() {
     
-    // A. MOBILE MENU LOGIC
+    // A. For mobile menu
     document.querySelectorAll('nav ul li a').forEach(link => {
         link.addEventListener('click', function(e) {
             const menuToggle = document.getElementById('menu-toggle');
@@ -45,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // B. UX & ANIMATION LOGIC
+    // B. for scroll animation
     const header = document.querySelector('.main-header');
     if (header) {
         window.addEventListener('scroll', () => {
@@ -72,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
 
-    // C. DYNAMIC FORM FEATURES (Country Dropdown & Phone)
+    // C. auto selection country wise phone digit 
     const countrySelect = document.getElementById("country");
     const phoneInput = document.getElementById("phone");
 
@@ -97,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Handle file attachment text
+    // for file attachment text
     const fileInput = document.getElementById('attachment');
     const fileChosenText = document.getElementById('file-chosen');
     if (fileInput && fileChosenText) {
@@ -111,15 +87,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
-    // Auto-trigger rendering if we are on the submissions page
     renderSubmissions();
 });
 
-
-// =========================================
-// 2. FORM VALIDATION & SUBMISSION
-// =========================================
+// 2. form validation & submit
 function validateForm() {
     let isValid = true; 
     let firstErrorInput = null; 
@@ -218,9 +189,7 @@ function validateForm() {
     }
 }
 
-// =========================================
-// 3. HELPER FUNCTIONS
-// =========================================
+// 3. country selection logic
 function populateCountries() {
     const countrySelect = document.getElementById("country");
     const countries = [
@@ -239,10 +208,7 @@ function populateCountries() {
     });
 }
 
-// =========================================
-// 4. SUBMISSIONS PAGE LOGIC (Secured + PDF)
-// =========================================
-
+// 4. SUBMISSIONS PAGE LOGIC
 let adminAuthToken = "";
 
 function getAdminAuth() {
@@ -368,11 +334,11 @@ window.downloadPDF = async function(index) {
             .replace('{{MESSAGE}}', contact.message);
 
         const container = document.createElement('div');
-        container.innerHTML = templateHtml;
+        container.innerHTML = templateHtml;d
 
         const opt = {
             margin:       [0, 0, 0.5, 0], 
-            filename:     `PitchTech_Submission_${contact.name.replace(/\s+/g, '_')}.pdf`,
+            filename:     `PitchTech_form${contact.name.replace(/\s+/g, '_')}.pdf`,
             image:        { type: 'jpeg', quality: 1 },
             html2canvas:  { scale: 2, useCORS: true }, 
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -387,4 +353,23 @@ window.downloadPDF = async function(index) {
         pdfBtn.innerHTML = originalBtnText;
         pdfBtn.disabled = false;
     }
+
+    // form successful pop up message
+function showToast(message, isSuccess = true) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.className = "show";
+    
+    if (isSuccess) {
+        toast.classList.add("success");
+    } else {
+        toast.classList.add("error");
+    }
+
+    setTimeout(function() { 
+        toast.className = toast.className.replace("show", ""); 
+    }, 3500);
+}
 };
