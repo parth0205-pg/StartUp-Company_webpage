@@ -1,8 +1,4 @@
-/* =========================================
-   PITCHTECH MAIN JAVASCRIPT
-   ========================================= */
-
-// --- GLOBAL TOAST FUNCTION ---
+//Global tost function
 function showToast(message, isSuccess = true) {
     const toast = document.getElementById("toast");
     if (!toast) return;
@@ -13,12 +9,9 @@ function showToast(message, isSuccess = true) {
     setTimeout(function() { toast.className = toast.className.replace("show", ""); }, 3500);
 }
 
-// =========================================
-// 1. RUN ON PAGE LOAD
-// =========================================
+// 1. Smooth animation effect
 document.addEventListener("DOMContentLoaded", function() {
-    
-    // Smooth Scrolling & Mobile Menu
+
     document.querySelectorAll('nav ul li a').forEach(link => {
         link.addEventListener('click', function(e) {
             const menuToggle = document.getElementById('menu-toggle');
@@ -32,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Scroll Animations
     const header = document.querySelector('.main-header');
     if (header) {
         window.addEventListener('scroll', () => {
@@ -49,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
     document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
 
-    // Dynamic Form Features
     const countrySelect = document.getElementById("country");
     const phoneInput = document.getElementById("phone");
     if (countrySelect && phoneInput) {
@@ -82,19 +73,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Auto-trigger rendering based on which page we are on
     if (document.getElementById("submissions-container")) renderUserSubmissions();
 });
 
-// =========================================
-// 2. FORM VALIDATION & DUAL SUBMISSION
-// =========================================
+// 2. FORM validation and submission
 function validateForm() {
     let isValid = true; let firstErrorInput = null; 
     const nameInput = document.getElementById("name"); const emailInput = document.getElementById("email");
     const phoneInput = document.getElementById("phone"); const companyInput = document.getElementById("company"); 
     const countryInput = document.getElementById("country"); const messageInput = document.getElementById("message");
-    const fileInput = document.getElementById('attachment'); // Grab file input
+    const fileInput = document.getElementById('attachment');
 
     const name = nameInput ? nameInput.value.trim() : ""; const email = emailInput ? emailInput.value.trim() : "";
     const phone = phoneInput ? phoneInput.value.trim() : ""; const country = countryInput ? countryInput.value : "";
@@ -110,11 +98,10 @@ function validateForm() {
     if (country === "" || country === null) showError(countryInput, "country-error", "Please select a Country");
     if (message === "") showError(messageInput, "message-error", "Please enter a Description");
 
-    // NEW: 10MB File Size Check
     let fileName = 'None';
     if (fileInput && fileInput.files.length > 0) {
         const file = fileInput.files[0];
-        if (file.size > 10 * 1024 * 1024) { // 10MB in bytes
+        if (file.size > 10 * 1024 * 1024) {
             showError(fileInput, "file-error", "File is too large. Maximum size is 10MB.");
         } else {
             fileName = file.name;
@@ -137,14 +124,13 @@ function validateForm() {
         .then(async response => {
             if (!response.ok) throw new Error("Server rejected request");
             
-            // Grab the timestamped filename sent from Spring Boot!
             const serverFileName = await response.text(); 
             
             const userCopy = {
                 name: name, email: email, phone: phone || 'N/A',
                 company: companyInput ? companyInput.value.trim() || 'N/A' : 'N/A',
                 country: country, message: message, 
-                fileName: serverFileName, // Use the real server filename
+                fileName: serverFileName,
                 timestamp: new Date().toISOString()
             };
             let localData = JSON.parse(localStorage.getItem("pitchtech_user_forms")) || [];
@@ -162,9 +148,7 @@ function validateForm() {
     }
 }
 
-// =========================================
-// 3. USER SUBMISSIONS PAGE (Local Data)
-// =========================================
+// 3. User submission page and form data
 function renderUserSubmissions() {
     const container = document.getElementById("submissions-container");
     if (!container) return; 
@@ -178,18 +162,15 @@ function renderUserSubmissions() {
         container.innerHTML = ""; 
         localData.forEach((contact, index) => {
             
-            // Clean Fallbacks
             const companyText = (contact.company && contact.company !== 'Not submitted') ? contact.company : 'N/A';
             const phoneText = (contact.phone && contact.phone !== 'Not submitted') ? contact.phone : 'N/A';
             
-            // Clickable file link without credentials
             let fileDisplay = '<span style="color:#aaa;">No file attached</span>';
             if (contact.fileName && contact.fileName !== 'No file attached' && contact.fileName !== 'None') {
                 const originalName = contact.fileName.substring(contact.fileName.indexOf('_') + 1);
                 fileDisplay = `<a href="http://localhost:5055/uploads/${contact.fileName}" target="_blank" style="color:var(--primary); text-decoration:underline;">${originalName}</a>`;
             }
 
-            // New Beautiful Card Layout
             container.innerHTML += `
                 <div class="service-category reveal active" id="card-${index}">
                     <h2 style="color: var(--dark); margin-bottom: 20px; font-size: 1.8rem;">${contact.name}</h2>
@@ -229,10 +210,7 @@ window.deleteUserSubmission = function(index) {
     }
 };
 
-// =========================================
-// 4. ADMIN DASHBOARD (MySQL Data)
-// =========================================
-// Toggle Admin Password Visibility
+// 4. Admin page DB Table
 window.togglePassword = function() {
     const pwdInput = document.getElementById("admin-pass");
     const icon = document.getElementById("toggle-pwd");
@@ -283,16 +261,13 @@ window.fetchAdminData = function(isLoginAttempt = false) {
         }
 
         data.forEach((row, index) => {
-            // 1. Continuous Display ID
             const displayId = index + 1; 
             
-            // 2. "Not submitted" Fallbacks
             const dateStr = row.timestamp ? row.timestamp.split('T')[0] : 'Not submitted';
             const phoneStr = row.phone ? row.phone : '<span style="color:#aaa;">Not submitted</span>';
             const compStr = row.company ? row.company : '<span style="color:#aaa;">Not submitted</span>';
             const snippet = row.message.length > 30 ? row.message.substring(0, 30) + "..." : row.message;
 
-            // 3. Clickable File Link (strips out the timestamp from the display name)
             let fileDisplay = '<span style="color:#aaa;">Not submitted</span>';
             if (row.fileName && row.fileName !== 'No file attached') {
                 const originalName = row.fileName.substring(row.fileName.indexOf('_') + 1);
@@ -332,9 +307,7 @@ window.deleteAdminSubmission = function(id) {
     }
 };
 
-// =========================================
-// 5. PDF GENERATION
-// =========================================
+// 5. Generate PDF
 window.downloadPDF = async function(index) {
     const contact = window.submissionsData[index];
     if (!contact) return;
@@ -383,11 +356,9 @@ window.downloadPDF = async function(index) {
     } finally {
         pdfBtn.innerHTML = originalBtnText; pdfBtn.disabled = false;
     }
-}; // <--- THIS WAS THE MISSING BRACKET FOR FUNCTION 5!
+};
 
-// =========================================
-// 6. ADMIN DASHBOARD PDF GENERATOR
-// =========================================
+// 6. Admin page
 window.downloadAdminTablePDF = async function() {
     const originalTable = document.querySelector('.admin-table-wrapper');
     if (!originalTable) {
@@ -395,21 +366,17 @@ window.downloadAdminTablePDF = async function() {
         return;
     }
 
-    // Change button text to Loading state
     const pdfBtn = document.getElementById('admin-pdf-btn');
     const originalText = pdfBtn.innerHTML;
     pdfBtn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Generating...";
     pdfBtn.disabled = true;
 
     try {
-        // 1. Clone the table so we can modify it without ruining the webpage
         const cloneWrapper = originalTable.cloneNode(true);
         
-        // FIX: Remove overflow so html2pdf doesn't crash or clip the image!
         cloneWrapper.style.overflow = "visible"; 
         cloneWrapper.style.width = "100%";
         
-        // 2. Remove the "Actions" column (the last column) from every row
         const rows = cloneWrapper.querySelectorAll('tr');
         rows.forEach(row => {
             if(row.lastElementChild) {
@@ -417,7 +384,6 @@ window.downloadAdminTablePDF = async function() {
             }
         });
 
-        // 3. Create a clean container with a White Background and Title
         const pdfContent = document.createElement('div');
         pdfContent.style.padding = "20px";
         pdfContent.style.background = "#ffffff"; 
@@ -431,24 +397,20 @@ window.downloadAdminTablePDF = async function() {
         `;
         pdfContent.appendChild(cloneWrapper);
 
-        // 4. Configure html2pdf for LANDSCAPE A4
         const opt = {
             margin:       0.3,
             filename:     `PitchTech_Admin_Report_${new Date().toISOString().split('T')[0]}.pdf`,
             image:        { type: 'jpeg', quality: 1 },
-            // windowWidth forces the layout to act like a desktop screen so tables don't squish
             html2canvas:  { scale: 2, useCORS: true, windowWidth: 1200 }, 
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'landscape' } 
         };
 
-        // 5. Generate and Save
         await html2pdf().set(opt).from(pdfContent).save();
 
     } catch (error) {
         console.error("PDF Generation Error:", error);
         alert("Failed to generate table PDF. Please try again.");
     } finally {
-        // Reset the button back to normal
         pdfBtn.innerHTML = originalText;
         pdfBtn.disabled = false;
     }

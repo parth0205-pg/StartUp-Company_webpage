@@ -177,7 +177,7 @@ nav ul li a:hover {
     transform: translateY(0);
 }
 
-/* --- 100vh Fullscreen Hero (Desktop Diagonal) --- */
+/*100vh Fullscreen Hero (Desktop Diagonal)*/
 .hero-fullscreen {
     height: 100vh;
     display: flex;
