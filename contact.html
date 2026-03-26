@@ -84,10 +84,11 @@
                         <textarea name="message" id="message" rows="5" placeholder="Enter your message"></textarea>
                         <span class="error-message" id="message-error"></span>
                     </div>
-                    <div class="form-group file-upload">
-                        <label for="attachment" class="file-label"><i class="fas fa-paperclip"></i> Attach file (optional):</label>
+                    <div class="form-group file-upload" style="flex-direction: column; align-items: flex-start; gap: 5px;">
+                        <label for="attachment" class="file-label"><i class="fas fa-paperclip"></i> Attach file (Optional)( Max 10MB: .png, .jpg, .pdf, .doc):</label>
                         <input type="file" name="attachment" id="attachment" class="file-input-hidden" accept=".pdf,.doc,.docx,.jpg,.png">
-                        <span id="file-chosen" class="file-chosen">No file chosen</span>
+                        <span id="file-chosen" class="file-chosen-text">No file chosen</span>
+                        <span class="error-message" id="file-error"></span>
                     </div>
                     <button type="submit" class="submit-btn">Submit</button>
                     <div class="form-consent">

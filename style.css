@@ -960,6 +960,82 @@ nav ul li a.active-link::after {
     border-radius: 2px;
 }
 
+/*ADMIN DASHBOARD STYLES*/
+
+.admin-main {
+    padding-top: 120px;
+    min-height: 80vh;
+}
+
+.admin-login-wrapper {
+    max-width: 400px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.admin-heading {
+    margin-bottom: 20px;
+    color: var(--dark);
+}
+
+.admin-submit {
+    margin-top: 15px;
+}
+
+.admin-error-text {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#admin-dashboard {
+    display: none;
+}
+
+.admin-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-refresh-btn {
+    padding: 10px 20px;
+}
+
+/*Admin Data Table*/
+.admin-table-wrapper {
+    overflow-x: auto;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.admin-table th, .admin-table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eaeaea;
+    text-align: left;
+}
+
+.admin-table th {
+    background: var(--dark);
+    color: var(--white);
+    font-weight: 500;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.admin-table tr:hover {
+    background-color: #f1f5f9;
+}
+
 /* Responsive media*/
 
 @media (max-width: 992px) {
