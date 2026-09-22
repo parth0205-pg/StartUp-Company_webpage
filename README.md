@@ -1,4 +1,4 @@
-# PitchTech Full-Stack Website (Frontend)
+# PitchTech Full-Stack Website
 
 A modern, fully responsive, and dynamic multi-page website for PitchTech, a tech consultancy and software development agency. Originally built as a static template, this project has evolved into a fully functional frontend application integrated with a Java Spring Boot and MySQL REST API.
 
